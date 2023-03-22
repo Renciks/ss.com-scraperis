@@ -1,0 +1,6 @@
+py == 3.11
+pip == 22.3.1
+Flask == 2.2.3
+sqlite
+html5lib == 1.1
+bs4(Beatiful soup) == 0.0.1

@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>ss.com sludinājumu notifikātors</h1>
+<h6>Alfa versija: 0.23</h6>
+<br>
+<form method="POST"><!-- forma kurā lietotājs izvēlās sadaļu kurā meklēt sludinājumus  -->
+    <h6 align="center">Izvēlies sadaļu kurā meklēt sludinājumus</h6>
+
+    <div class="form-group">
+
+        <select type="text" class="form-control" id="sadala1" name="sadala1" onChange="populate(this.id, 'sadala2')">
+            {% for row in data %}
+            <option value="{{row[1]}}">{{row[2]}}</option>
+            {% endfor%}
+        </select>
+        <select type="text" class="form-control" id="sadala2" name="sadala2" onChange="populate2(this.id, 'sadala3')">
+        </select>
+        <select type="text" class="form-control" id="sadala3" name="sadala3">
+        </select>
+    </div>
+
+    <!-- javasript bloks kurš atbild par dinamiskajām izvēlnēm  -->
+<script type="text/javascript"> 
+        var izv1 = ""
+        var izv2 = ""
+        var izv3 = ""
+        
+
+function populate(s1, s2){
+    var s1 = document.getElementById(s1);
+    var s2 = document.getElementById(s2);
+    s2.innerHTML = "";
+
+    /* switch kas pārbauda kāda sadaļa tiek izvēlēta pirmajā izvēlnē un aizpilda otro izvēlni atkarīgi no izvēles */
+    switch(s1.value){
+
+        case "transport":
+            var optionArray = [" |Izvēlies apakšsadaļu","cars|Vieglie auto", "cargo-cars|Kravas automašīnas","moto-transport|motocikli/mopēdi","search-result|viss transports"];
+                break;
+        case "animals":
+            var optionArray = [" |Izvēlies apakšsadaļu","dogs|Suņi", "cats|Kaķi", "search-result|Visi dzīvnieki"];
+                break;
+        case "work":
+            var optionArray = [" |Izvēlies apakšsadaļu","search-result|Visi piedāvājumi"];
+                break;
+        case "real-estate":
+            var optionArray = [" |Izvēlies apakšsadaļu","search-result|Visi īpašumi"];
+                break;      
+        case "construction":
+            var optionArray = [" |Izvēlies apakšsadaļu","search-result|Visi sludinājumi"];
+                break;                      
+        case "electronics":
+            var optionArray = [" |Izvēlies apakšsadaļu","search-result|Visa elektronika"];
+                break;                     
+        case "clothes-footwear":
+            var optionArray = [" |Izvēlies apakšsadaļu","search-result|Visas drēbes/apģērbs"];
+                break;                  
+        case "home-stuff":
+            var optionArray = [" |Izvēlies apakšsadaļu","search-result|Viss mājai"];
+                break;                   
+        case "production-work":
+            var optionArray = [" |Izvēlies apakšsadaļu","search-result|Visi sludinājumi"];
+                break;      
+        case "for-children":
+            var optionArray = [" |Izvēlies apakšsadaļu","search-result|Visi sludinājumi"];
+                break;                  
+        case "entertainment":
+            var optionArray = [" |Izvēlies apakšsadaļu","search-result|Visi sludinājumi"];
+                break;            
+        case "agriculture":
+            var optionArray = [" |Izvēlies apakšsadaļu","search-result|Visi sludinājumi"];
+                break;       
+        }           
+    for(var option in optionArray){
+        var pair = optionArray[option].split("|"); // sadala izvēlēto opciju pie | zīmes
+        var newOption = document.createElement("option");
+        newOption.value = pair[0]; // iestata newOption vērtību kā pirmo daļu no optionArray
+        newOption.innerHTML = pair[1];
+        s2.options.add(newOption);
+        izv1 = s1.value
+    }
+
+}
+
+//tas pats kas pirmajā funkcijā tikai aizpilda trešo izvēlnes daļu atkarīgi no pirmās
+function populate2(s2, s3){
+    var s2 = document.getElementById(s2);
+    var s3 = document.getElementById(s3);
+    s3 .innerHTML = "";
+
+    switch(s2.value){
+        case "cars":
+            var optionArray = ["bmw|bmw","audi|audi","alfa-romeo|alfa romeo","volvo|volvo","opel|opel","mercedes|mercedes","volkswagen|volkswagen"];
+                break;  
+        case "cargo-cars":
+            var optionArray = ["search-result|Visas kravas automašīnas"];
+                break;
+        case "cats":
+            var optionArray = [" |Kaķi"];
+                break;  
+        case "dogs":
+            var optionArray = [" |Suņi"];
+                break;
+        case "search-result":
+            var optionArray = [" |visi sludinājumi"];
+                break;
+        case "moto-transport":
+            var optionArray = ["motorcycles/search-result/|Motocikli"];
+                break;
+
+    }
+    for(var option in optionArray){
+        var pair = optionArray[option].split("|");
+        var newOption = document.createElement("option");
+        newOption.value = pair[0];
+        newOption.innerHTML = pair[1];
+        s3.options.add(newOption);
+        izv3 = s3.value
+        izv2 = s2.value
+    }
+}
+
+function OnClickbutton(){
+    var links = "https://www.ss.com/lv/" + izv1 + "/" + izv2 + "/" + izv3 //izveido linku no ss.com un lietotāja izvēlēm 
+    const poga = document.getElementsByName("gen_link"); //atrod pogu
+    poga[0].value = links; //pogas vērtībai piesaista linku
+}
+
+</script>
+    <br>
+
+</form>
+
+<br>
+
+    <form action="/home.html" method="POST"><!-- forma ar metodi POST kas padod izveidoto linku uz datubāzi -->
+
+        <!-- nospiežot pogu izpildās funkcija kas ievada pogas vērtību kā izveidoto linku un padot to uz datubāzi -->
+        <button onclick="OnClickbutton()" value="" class="form-control" type="text" name="gen_link">Generēt linku</button> 
+    </form>
+    
+
+{% endblock %}
