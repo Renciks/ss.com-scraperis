@@ -2,6 +2,8 @@
 
 Programma kas ik pēc noteikta laika nolasa sludinājumu ierakstus ss.com un izvada iegūtos rezultātus.
 
+Video, kurā parādīta programmas darbība - https://youtu.be/TFXXlLiPZEo
+
 the rest coming soon!
  
 ### Lai izmantotu:
