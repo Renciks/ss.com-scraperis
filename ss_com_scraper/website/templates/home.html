@@ -1,22 +1,21 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Paziņotājs{% endblock %}
 {% block content %}
 <h1>ss.com sludinājumu notifikātors</h1>
-<h6>Alfa versija: 0.23</h6>
 <br>
 <form method="POST"><!-- forma kurā lietotājs izvēlās sadaļu kurā meklēt sludinājumus  -->
     <h6 align="center">Izvēlies sadaļu kurā meklēt sludinājumus</h6>
 
     <div class="form-group">
 
-        <select type="text" class="form-control" id="sadala1" name="sadala1" onChange="populate(this.id, 'sadala2')">
+        <select type="text" class="form-control izvelne" id="sadala1" name="sadala1" onChange="populate(this.id, 'sadala2')">
             {% for row in data %}
             <option value="{{row[1]}}">{{row[2]}}</option>
             {% endfor%}
         </select>
-        <select type="text" class="form-control" id="sadala2" name="sadala2" onChange="populate2(this.id, 'sadala3')">
+        <select type="text" class="form-control izvelne" id="sadala2" name="sadala2" onChange="populate2(this.id, 'sadala3')">
         </select>
-        <select type="text" class="form-control" id="sadala3" name="sadala3">
+        <select type="text" class="form-control izvelne" id="sadala3" name="sadala3" onChange="populate3(this.id, 'sadala3')">
         </select>
     </div>
 
@@ -39,7 +38,7 @@ function populate(s1, s2){
             var optionArray = [" |Izvēlies apakšsadaļu","cars|Vieglie auto", "cargo-cars|Kravas automašīnas","moto-transport|motocikli/mopēdi","search-result|viss transports"];
                 break;
         case "animals":
-            var optionArray = [" |Izvēlies apakšsadaļu","dogs|Suņi", "cats|Kaķi", "search-result|Visi dzīvnieki"];
+            var optionArray = [" |Izvēlies apakšsadaļu","dogs|Suņi", "cats|Kaķi", "search-result|Visi dzīvnieki", "rodents|grauzēji"];
                 break;
         case "work":
             var optionArray = [" |Izvēlies apakšsadaļu","search-result|Visi piedāvājumi"];
@@ -76,25 +75,24 @@ function populate(s1, s2){
         var pair = optionArray[option].split("|"); // sadala izvēlēto opciju pie | zīmes
         var newOption = document.createElement("option");
         newOption.value = pair[0]; // iestata newOption vērtību kā pirmo daļu no optionArray
-        newOption.innerHTML = pair[1];
+        newOption.innerHTML = pair[1]; // iestata newOption vērtību kā otro daļu no optionArray
         s2.options.add(newOption);
         izv1 = s1.value
     }
-
 }
 
 //tas pats kas pirmajā funkcijā tikai aizpilda trešo izvēlnes daļu atkarīgi no pirmās
 function populate2(s2, s3){
     var s2 = document.getElementById(s2);
     var s3 = document.getElementById(s3);
-    s3 .innerHTML = "";
+    s3.innerHTML = "";
 
     switch(s2.value){
         case "cars":
             var optionArray = ["bmw|bmw","audi|audi","alfa-romeo|alfa romeo","volvo|volvo","opel|opel","mercedes|mercedes","volkswagen|volkswagen"];
                 break;  
         case "cargo-cars":
-            var optionArray = ["search-result|Visas kravas automašīnas"];
+            var optionArray = ["trailerss|piekabes","search-result|Visas kravas automašīnas"];
                 break;
         case "cats":
             var optionArray = [" |Kaķi"];
@@ -106,19 +104,25 @@ function populate2(s2, s3){
             var optionArray = [" |visi sludinājumi"];
                 break;
         case "moto-transport":
-            var optionArray = ["motorcycles/search-result/|Motocikli"];
+            var optionArray = ["motorcycles/search-result/|Motocikli","motorcycles/honda/|honda", "search-result/|visi sludinājumi"];
+                break;
+        default:
+            var optionArray = ["search-result/|visi sludinājumi"];
                 break;
 
-    }
+        }
     for(var option in optionArray){
-        var pair = optionArray[option].split("|");
+        var pair = optionArray[option].split("|"); // sadala izvēlēto opciju pie | zīmes
         var newOption = document.createElement("option");
-        newOption.value = pair[0];
-        newOption.innerHTML = pair[1];
+        newOption.value = pair[0]; // iestata newOption vērtību kā pirmo daļu no optionArray
+        newOption.innerHTML = pair[1]; // iestata newOption vērtību kā otro daļu no optionArray
         s3.options.add(newOption);
-        izv3 = s3.value
         izv2 = s2.value
     }
+}
+function populate3(s3){ /* populē trešo izvēlni skatoties uz iepriekšizvēlētajām vērtībām */
+    var s3 = document.getElementById(s3);
+    izv3 = s3.value
 }
 
 function OnClickbutton(){
@@ -132,13 +136,31 @@ function OnClickbutton(){
 
 </form>
 
-<br>
 
-    <form action="/home.html" method="POST"><!-- forma ar metodi POST kas padod izveidoto linku uz datubāzi -->
+    <table>
+        <tr>
+            <td>
+                <form action="/home.html" method="POST"><!-- forma ar metodi POST kas padod izveidoto linku uz datubāzi -->
 
-        <!-- nospiežot pogu izpildās funkcija kas ievada pogas vērtību kā izveidoto linku un padot to uz datubāzi -->
-        <button onclick="OnClickbutton()" value="" class="form-control" type="text" name="gen_link">Generēt linku</button> 
-    </form>
-    
+                <!-- nospiežot pogu izpildās funkcija kas ievada pogas vērtību kā izveidoto linku un padot to uz datubāzi -->
+                <button onclick="OnClickbutton()" value="" class="button2 form-control" form-control" type="text" name="gen_link">Meklēt</button> 
+            </form>
+        </td>
+        
+        <td>Poga "Meklēt" linku sastāda ss.com linku, kurā programma meklē jaunus sludinājumus.</td>
+        </tr>
+
+        <tr>
+            <td>
+                <form action="/aiziet.html" method="POST"><!-- forma ar metodi POST kas padod izveidoto linku uz datubāzi -->
+
+                <!-- nospiežot pogu izpildās funkcija kas ievada pogas vērtību kā izveidoto linku un padot to uz datubāzi -->
+                <button value="" class="button3 form-control" type="text" name="gen_link">Doties</button> 
+            </form>
+        </td>
+        <td>Poga "Doties" aizved pie jaunākā sludinājuma izvēlētajā sadaļā.</td>
+        </tr>
+        
+    </table>
 
 {% endblock %}

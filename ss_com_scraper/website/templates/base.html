@@ -10,12 +10,57 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
     crossorigin="anonymous"
   />
+  
 
+<style>
+    .button2 {
+        width: 100%; 
+        background-color: rgba(127, 255, 212, 0.513);}
 
+    .button3 {
+        width: 100%; 
+        background-color:rgba(143, 188, 143, 0.513);}
+        
+    .button4 {
+    width: 100%; 
+    background-color:rgba(188, 143, 143, 0.513);}
+
+    .izvelne {
+        width: 70%; 
+        margin: auto;}
+
+    .wrapper .sidebar{
+    background: rgb(202, 202, 202);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 10%;
+    height: 100%;
+    padding: 20px 0;
+    transition: all 0.5s ease;
+    }
+    .sidebar2{
+    background: rgb(202, 202, 202);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10%;
+    height: 100%;
+    padding: 20px 0;
+    transition: all 0.5s ease;
+
+    }
+</style>
     <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="/static/icon.png">
 </head>
 
 <body style="background-color:rgb(221, 221, 221)">
+    <div class="wrapper">
+        <!--Top menu -->
+        <div class="sidebar">
+        </div>
+        <div class="sidebar2"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
             <span class="navbar-toggler-icon"></span>
@@ -38,7 +83,6 @@
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"
   ></script>
-
   <script 
     src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
