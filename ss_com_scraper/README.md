@@ -14,4 +14,11 @@ the rest coming soon!
 6. Ja viss izdarīts pareizi koda reduktora termināli parādīsies "IR JAUNS SLUDINĀJUMS" ar jaunākā sludinājuma izvadu.
 7. Lai apstādinātu programmu vai nogalini termināli, vai pārlādē lapu!
 
-Programmu veidoja Renārs Purviņš
+
+bibliotēkas:
+    flask
+    requests
+    bs4
+    win10toast_click
+
+
