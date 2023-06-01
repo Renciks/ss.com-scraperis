@@ -4,4 +4,3 @@ Flask == 2.2.3
 sqlite
 html5lib == 1.1
 bs4(Beatiful soup) == 0.0.1
-win10toast_click
